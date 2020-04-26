@@ -784,6 +784,10 @@ public class EntityCitizen extends AbstractEntityCitizen
             return result;
         }
 
+        if (damageSource.getTrueSource() instanceof LivingEntity && result) {
+            this.addPotionEffect(new EffectInstance(GLOW_EFFECT, GLOW_EFFECT_DAMAGE_DURATION, GLOW_EFFECT_MULTIPLIER));
+        }
+
         if (!world.isRemote)
         {
             citizenItemHandler.updateArmorDamage(damageInc);
