@@ -153,6 +153,7 @@ public final class Constants
     public static final Effect GLOW_EFFECT       = Effects.GLOWING;
 
     public static final int GLOW_EFFECT_DURATION   = 20 * 30;
+    public static final int GLOW_EFFECT_DAMAGE_DURATION   = 20 * 15;
     public static final int GLOW_EFFECT_MULTIPLIER = 20;
     public static final int GLOW_EFFECT_DISTANCE   = 60;
 
