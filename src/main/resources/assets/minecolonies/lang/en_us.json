@@ -325,6 +325,8 @@
   "death.attack.entity.minecolonies.archerbarbarian": "%s was ravaged by an Archer Barbarian",
   "entity.archerbarbarian": "Barbarian Archer",
 
+  "entity.guard.messagekilledenemy": "%s has killed a(n) %s!",
+
   "entity.builder.messagenobuilder": "You need a builder in order to build or upgrade this building.",
   "entity.farmer.needseed": "I need %s to plant.",
 

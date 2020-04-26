@@ -1699,4 +1699,15 @@ public class EntityCitizen extends AbstractEntityCitizen
     {
         setPose(pose);
     }
+
+    /**
+     * What to do when it kills something
+     * @param entityLivingIn the entity it killed
+     */
+    @Override
+    public void onKillEntity(LivingEntity entityLivingIn) {
+        LanguageHandler.sendPlayersMessage(this.getCitizenColonyHandler().getColony().getMessagePlayerEntities(),
+                LanguageHandler.format("entity.guard.messagekilledenemy",
+                this.getDisplayName(), entityLivingIn.getDisplayName()));
+    }
 }
