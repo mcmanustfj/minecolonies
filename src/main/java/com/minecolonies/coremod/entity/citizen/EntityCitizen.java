@@ -1785,4 +1785,15 @@ public class EntityCitizen extends AbstractEntityCitizen
     {
         return world.isRemote ? entityStatemachine.getState() == EntityState.ACTIVE_CLIENT : entityStatemachine.getState() == EntityState.ACTIVE_SERVER;
     }
+
+    /**
+     * What to do when it kills something
+     * @param entityLivingIn the entity it killed
+     */
+    @Override
+    public void onKillEntity(LivingEntity entityLivingIn) {
+        LanguageHandler.sendPlayersMessage(this.getCitizenColonyHandler().getColony().getMessagePlayerEntities(),
+                LanguageHandler.format("entity.guard.messagekilledenemy",
+                this.getDisplayName(), entityLivingIn.getDisplayName()));
+    }
 }
