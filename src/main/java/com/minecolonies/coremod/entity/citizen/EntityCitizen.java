@@ -1794,6 +1794,6 @@ public class EntityCitizen extends AbstractEntityCitizen
     public void onKillEntity(LivingEntity entityLivingIn) {
         LanguageHandler.sendPlayersMessage(this.getCitizenColonyHandler().getColony().getMessagePlayerEntities(),
                 LanguageHandler.format("entity.guard.messagekilledenemy",
-                this.getDisplayName(), entityLivingIn.getDisplayName()));
+                this.getName().getFormattedText(), entityLivingIn.getDisplayName()));
     }
 }
