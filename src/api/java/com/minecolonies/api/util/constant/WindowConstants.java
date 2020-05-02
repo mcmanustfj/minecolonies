@@ -60,6 +60,8 @@ public final class WindowConstants
      */
     public static final String BUTTON_CITIZENS = "citizens";
 
+    public static final String BUTTON_BUILDINGS = "buildings";
+
     /**
      * Id of the citizens button in the GUI.
      */
@@ -69,6 +71,10 @@ public final class WindowConstants
      * Id of the button displaying the Happiness in the GUI
      */
     public static final String BUTTON_HAPPINESS = "happiness";
+    /**
+     * Id of the button displaying the map in the GUI
+     */
+    public static final String BUTTON_MAP = "map";
 
     /**
      * Id of the recall button in the GUI.
@@ -189,7 +195,10 @@ public final class WindowConstants
      * Id of the citizens page in the GUI.
      */
     public static final String PAGE_CITIZENS = "pageCitizens";
-
+    /**
+     * Id of the builidings page in the GUI.
+     */
+    public static final String PAGE_BUILDINGS = "pageBuildings";
     /**
      * Id of the citizens page in the GUI.
      */
@@ -199,6 +208,7 @@ public final class WindowConstants
      * Id of the happiness page in the GUI.
      */
     public static final String PAGE_HAPPINESS = "pageHappiness";
+
 
     /**
      * Id of the user list in the GUI.
@@ -219,6 +229,10 @@ public final class WindowConstants
      * Id of the citizens list in the GUI.
      */
     public static final String LIST_CITIZENS = "citizenList";
+    /**
+     * Id of the buildings list in the GUI.
+     */
+    public static final String LIST_BUILDING = "buildingList";
 
     /**
      * Id of the allies list in the GUI.
@@ -244,6 +258,7 @@ public final class WindowConstants
      * Id of the name label in the GUI.
      */
     public static final String NAME_LABEL = "name";
+    public static final String BUILDING_NAME_LABEL = "buildingName";
 
     /**
      * Id of the pos label in the GUI.
@@ -259,6 +274,11 @@ public final class WindowConstants
      * Id of the citizen info box.
      */
     public static final String CITIZEN_INFO = "citizenInfoBox";
+
+    /**
+     * Id of the citizen info box.
+     */
+    public static final String BUILDING_INFO = "buildingInfoBox";
 
     /**
      * The button id to recall one specific citizen.
@@ -554,6 +574,11 @@ public final class WindowConstants
      * Window resource list gui file.
      */
     public static final String R_TREE_RESOURCE_SUFFIX = ":gui/windowresearch.xml";
+
+    /**
+     * Map list gui file
+     */
+    public static final String MAP_RESOURCE_SUFFIX = ":gui/townhall/windowmap.xml";
 
     public static final String BUTTON_BUILD             = "build";
     public static final String BUTTON_REPAIR            = "repair";
@@ -1133,6 +1158,11 @@ public final class WindowConstants
     public static final String SECONDARY_SKILL_COM = "comp2";
     public static final String SECONDARY_SKILL_ADV    = "adverse2";
 
+
+    /**
+     * Map Constants
+     */
+    public static final String DRAG_VIEW_ID = "dragView";
 
     /**
      * public constructor to hide implicit public one.

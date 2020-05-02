@@ -10,6 +10,7 @@ import com.minecolonies.api.research.IGlobalResearch;
 import com.minecolonies.api.research.IGlobalResearchTree;
 import com.minecolonies.api.research.ILocalResearch;
 import com.minecolonies.api.research.ILocalResearchTree;
+import com.minecolonies.api.research.util.ResearchConstants;
 import com.minecolonies.api.research.util.ResearchState;
 import com.minecolonies.api.util.constant.Constants;
 import com.minecolonies.coremod.Network;
@@ -69,7 +70,7 @@ public class WindowResearchTree extends AbstractWindowSkeleton
         final List<String> researchList = IGlobalResearchTree.getInstance().getPrimaryResearch(branch);
         this.hasMax = building.getColony().getResearchManager().getResearchTree().branchFinishedHighestLevel(branch);
 
-        final ZoomDragView view = findPaneOfTypeByID(DRAG_VIEW_ID, ZoomDragView.class);
+        final ZoomDragView view = findPaneOfTypeByID(ResearchConstants.DRAG_VIEW_ID, ZoomDragView.class);
 
         drawTree(0, 0, view, researchList, building.getColony().getResearchManager().getResearchTree(), true, false, 0);
 

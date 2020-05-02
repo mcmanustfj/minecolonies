@@ -10,6 +10,7 @@
     <image id="settings0" pos="56 169" size="31 14" source="minecolonies:textures/gui/bookmark_short_ribbon_05.png"/>
     <image id="workOrder0" pos="56 193" size="31 14" source="minecolonies:textures/gui/bookmark_short_ribbon_06.png"/>
     <image id="happiness0" pos="56 217" size="31 14" source="minecolonies:textures/gui/bookmark_short_ribbon_01.png"/>
+    <image id="buildings0" pos="56 241" size="31 14" source="minecolonies:textures/gui/bookmark_short_ribbon_01.png"/>
 
     <buttonimage id="infopage1" size="204 17" pos="58 43" source="minecolonies:textures/gui/bookmark_ribbon_01.png" visible="false"
                 label="$(com.minecolonies.coremod.gui.workerhuts.information)"
@@ -30,6 +31,9 @@
                 label="$(com.minecolonies.coremod.gui.workerhuts.workOrder)"
                 textalign="MIDDLE_LEFT" textoffset="35 2" textcolor="White" textdisabledcolor="DarkGray"/>
     <buttonimage id="happiness1" size="204 17" pos="58 43" source="minecolonies:textures/gui/bookmark_ribbon_01.png" visible="false"
+                label="$(com.minecolonies.coremod.gui.workerhuts.happiness)"
+                textalign="MIDDLE_LEFT" textoffset="35 2" textcolor="White" textdisabledcolor="DarkGray"/>
+    <buttonimage id="buildings1" size="204 17" pos="58 43" source="minecolonies:textures/gui/bookmark_ribbon_01.png" visible="false"
                 label="$(com.minecolonies.coremod.gui.workerhuts.happiness)"
                 textalign="MIDDLE_LEFT" textoffset="35 2" textcolor="White" textdisabledcolor="DarkGray"/>
 
@@ -71,6 +75,8 @@
     <!-- todo Create the texture -->
     <buttonimage id="happiness" size="17 17" pos="62 215"
                  source="minecolonies:textures/gui/red_wax_information.png"/>
+    <buttonimage id="buildings" size="17 17" pos="62 239"
+                 source="minecolonies:textures/gui/red_wax_information.png"/>
 
     <switch id="pages" size="374 243" pos="75 0">
         <view id="pageActions">
@@ -84,6 +90,9 @@
         </view>
         <view id="pageCitizens">
             <layout source="minecolonies:gui/townhall/layoutcitizens.xml"/>
+        </view>
+        <view id="pageBuildings">
+            <layout source="minecolonies:gui/townhall/layoutbuildings.xml"/>
         </view>
         <view id="pageSettings">
             <layout source="minecolonies:gui/townhall/layoutsettings.xml"/>

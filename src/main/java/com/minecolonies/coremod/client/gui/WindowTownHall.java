@@ -79,6 +79,8 @@ public class WindowTownHall extends AbstractWindowBuilding<ITownHallView>
      */
     @NotNull
     private final List<ICitizenDataView> citizens = new ArrayList<>();
+    @NotNull
+    private final List<IBuildingView> buildings = new ArrayList<>();
 
     /**
      * Map of the pages.
@@ -142,6 +144,7 @@ public class WindowTownHall extends AbstractWindowBuilding<ITownHallView>
         initColorPicker();
         updateUsers();
         updateCitizens();
+        updateBuildings();
         updateWorkOrders();
 
         tabsToPages.put(BUTTON_ACTIONS, PAGE_ACTIONS);
@@ -151,6 +154,7 @@ public class WindowTownHall extends AbstractWindowBuilding<ITownHallView>
         tabsToPages.put(BUTTON_CITIZENS, PAGE_CITIZENS);
         tabsToPages.put(BUTTON_WORKORDER, PAGE_WORKORDER);
         tabsToPages.put(BUTTON_HAPPINESS, PAGE_HAPPINESS);
+        tabsToPages.put(BUTTON_BUILDINGS, PAGE_BUILDINGS);
 
         tabsToPages.keySet().forEach(key -> registerButton(key, this::onTabClicked));
         registerButton(BUTTON_ADD_PLAYER, this::addPlayerCLicked);
@@ -169,6 +173,9 @@ public class WindowTownHall extends AbstractWindowBuilding<ITownHallView>
 
         registerButton(NAME_LABEL, this::fillCitizenInfo);
         registerButton(RECALL_ONE, this::recallOneClicked);
+
+        registerButton(BUILDING_NAME_LABEL, this::fillBuildingInfo);
+        registerButton(BUTTON_MAP, this::showMap);
 
         registerButton(BUTTON_MANAGE_OFFICER, this::editOfficer);
         registerButton(BUTTON_MANAGE_FRIEND, this::editFriend);
@@ -301,6 +308,7 @@ public class WindowTownHall extends AbstractWindowBuilding<ITownHallView>
 
         fillUserList();
         fillCitizensList();
+        fillBuildingsList();
         fillWorkOrderList();
         fillFreeBlockList();
         fillAlliesAndFeudsList();
@@ -341,6 +349,12 @@ public class WindowTownHall extends AbstractWindowBuilding<ITownHallView>
     {
         citizens.clear();
         citizens.addAll(townHall.getColony().getCitizens().values());
+    }
+
+    private void updateBuildings()
+    {
+        buildings.clear();
+        buildings.addAll(townHall.getColony().getBuildings());
     }
 
     /**
@@ -858,6 +872,7 @@ public class WindowTownHall extends AbstractWindowBuilding<ITownHallView>
         }
     }
 
+
     /**
      * On Button click update the priority.
      *
@@ -935,6 +950,26 @@ public class WindowTownHall extends AbstractWindowBuilding<ITownHallView>
           "§l" + LanguageHandler.format(view.getJob().trim().isEmpty() ? GUI_TOWNHALL_CITIZEN_JOB_UNEMPLOYED : view.getJob()));
         findPaneOfTypeByID(HIDDEN_CITIZEN_ID, Label.class).setLabelText(String.valueOf(view.getId()));
     }
+    /**
+     * Executed when fill citizen is clicked.
+     *
+     * @param button the clicked button.
+     */
+    private void fillBuildingInfo(final Button button)
+    {
+        final ScrollingList buildingList = findPaneOfTypeByID(LIST_BUILDING, ScrollingList.class);
+        for (final Pane pane : buildingList.getContainer().getChildren())
+        {
+            pane.findPaneOfTypeByID(BUILDING_NAME_LABEL, ButtonImage.class).enable();
+        }
+        final int row = buildingList.getListElementIndexByPane(button);
+        findPaneByID(BUILDING_INFO).show();
+        button.disable();
+        final IBuildingView view = buildings.get(row);
+        findPaneOfTypeByID("name", Label.class).setLabelText(building.getCustomName());
+        findPaneOfTypeByID("level", Label.class).setLabelText(String.valueOf(building.getBuildingLevel()));
+
+    }
 
     /**
      * Executed when the recall one button has been clicked.
@@ -969,6 +1004,26 @@ public class WindowTownHall extends AbstractWindowBuilding<ITownHallView>
                 final ICitizenDataView citizen = citizens.get(index);
 
                 rowPane.findPaneOfTypeByID(NAME_LABEL, ButtonImage.class).setLabel(citizen.getName());
+            }
+        });
+    }
+    private void fillBuildingsList()
+    {
+        final ScrollingList buildingList = findPaneOfTypeByID(LIST_BUILDING, ScrollingList.class);
+        buildingList.setDataProvider(new ScrollingList.DataProvider()
+        {
+            @Override
+            public int getElementCount()
+            {
+                return buildings.size();
+            }
+
+            @Override
+            public void updateElement(final int index, @NotNull final Pane rowPane)
+            {
+                final IBuildingView building = buildings.get(index);
+
+                rowPane.findPaneOfTypeByID(BUILDING_NAME_LABEL, ButtonImage.class).setLabel(building.getSchematicName()+' '+building.getBuildingLevel());
             }
         });
     }
@@ -1111,6 +1166,12 @@ public class WindowTownHall extends AbstractWindowBuilding<ITownHallView>
         }
         Network.getNetwork().sendToServer(new ToggleHelpMessage(this.building.getColony()));
     }
+    private void showMap(Button button)
+    {
+        new WindowMap(building, this).open();
+
+    }
+
 
     /**
      * Sets the clicked tab.
@@ -1163,6 +1224,10 @@ public class WindowTownHall extends AbstractWindowBuilding<ITownHallView>
             case PAGE_WORKORDER:
                 updateWorkOrders();
                 window.findPaneOfTypeByID(LIST_WORKORDER, ScrollingList.class).refreshElementPanes();
+                break;
+            case PAGE_BUILDINGS:
+                updateBuildings();
+                window.findPaneOfTypeByID(LIST_BUILDING, ScrollingList.class).refreshElementPanes();
                 break;
         }
     }
@@ -1287,4 +1352,5 @@ public class WindowTownHall extends AbstractWindowBuilding<ITownHallView>
             editOfficer();
         }
     }
+
 }

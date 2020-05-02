@@ -1,0 +1,23 @@
+<window xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" size="374 243" pause="false" lightbox="false"
+        xsi:noNamespaceSchemaLocation="file:../../../../java/com/minecolonies/blockout/blockOut.xsd">
+
+    <switch id="switchpageBuildings" size="100% 100%">
+        <view>
+            <box id="buildingInfoBox" size="148 148" pos="25 63" linewidth="0" visible="false">
+                <label id="name" size="100% 11" color="black" pos="0 5" textalign="MIDDLE"/>
+                <label id="level" size="100% 11" color="black" pos="128 18"/>
+                <buttonimage label="map" id="map" pos="30 132" size="86 17"
+                            source="minecolonies:textures/gui/builderhut/builder_button_medium.png" textcolor="black"/>
+            </box>
+
+            <label size="148 11" pos="201 28" textalign="MIDDLE" color="black"
+                label="§n§4$(com.minecolonies.coremod.gui.townHall.citizens):"/>
+            <list id="buildingList" size="148 166" pos="201 50">
+                <view size="100% 17">
+                    <buttonimage id="buildingName" pos="9 0" size="129 17" textcolor="black"
+                                source="minecolonies:textures/gui/builderhut/builder_button_medium_large.png"/>
+                </view>
+            </list>
+        </view>
+    </switch>
+</window>
