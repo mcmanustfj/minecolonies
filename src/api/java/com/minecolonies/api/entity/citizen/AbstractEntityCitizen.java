@@ -15,11 +15,9 @@ import com.minecolonies.api.util.CompatibilityUtils;
 import com.minecolonies.api.util.SoundUtils;
 import com.minecolonies.api.util.constant.Constants;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.GoalSelector;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ShieldItem;
@@ -49,7 +47,7 @@ import static com.minecolonies.api.util.constant.CitizenConstants.*;
  * The abstract citizen entity.
  */
 @SuppressWarnings({"PMD.ExcessiveImports", "PMD.CouplingBetweenObjects"})
-public abstract class AbstractEntityCitizen extends AgeableEntity implements ICapabilitySerializable<CompoundNBT>, INamedContainerProvider
+public abstract class AbstractEntityCitizen extends AgeableEntity implements ICapabilitySerializable<CompoundNBT>, INamedContainerProvider, INPC
 {
     public static final DataParameter<Integer>  DATA_LEVEL           = EntityDataManager.createKey(AbstractEntityCitizen.class, DataSerializers.VARINT);
     public static final DataParameter<Integer>  DATA_TEXTURE         = EntityDataManager.createKey(AbstractEntityCitizen.class, DataSerializers.VARINT);
@@ -201,11 +199,7 @@ public abstract class AbstractEntityCitizen extends AgeableEntity implements ICa
             return;
         }
 
-        final IModelType model = getModelType();
-
-        final String textureBase = "textures/entity/" + model.getTextureBase() + (female ? "female" : "male");
-        final int moddedTextureId = (textureId % model.getNumTextures()) + 1;
-        texture = new ResourceLocation(Constants.MOD_ID, textureBase + moddedTextureId + renderMetadata + ".png");
+        texture = getModelType().getTexture(this);
     }
 
     /**
@@ -602,12 +596,16 @@ public abstract class AbstractEntityCitizen extends AgeableEntity implements ICa
      */
     public abstract ICitizenInventoryHandler getCitizenInventoryHandler();
 
+    public abstract void setCitizenInventoryHandler(ICitizenInventoryHandler citizenInventoryHandler);
+
     /**
      * The Handler for all colony related methods.
      *
      * @return the instance of the handler.
      */
     public abstract ICitizenColonyHandler getCitizenColonyHandler();
+
+    public abstract void setCitizenColonyHandler(ICitizenColonyHandler citizenColonyHandler);
 
     /**
      * The Handler for all job related methods.
@@ -636,6 +634,9 @@ public abstract class AbstractEntityCitizen extends AgeableEntity implements ICa
      * @return the instance of the handler.
      */
     public abstract ICitizenDiseaseHandler getCitizenDiseaseHandler();
+
+
+    public abstract void setCitizenDiseaseHandler(ICitizenDiseaseHandler citizenDiseaseHandler);
 
     /**
      * Check if the citizen can eat now by considering the state and the job tasks.
@@ -678,11 +679,15 @@ public abstract class AbstractEntityCitizen extends AgeableEntity implements ICa
 
     public abstract boolean isDead();
 
+    public abstract void setCitizenStuckHandler(ICitizenStuckHandler citizenStuckHandler);
 
+    public abstract void setCitizenSleepHandler(ICitizenSleepHandler citizenSleepHandler);
 
+    public abstract void setCitizenJobHandler(ICitizenJobHandler citizenJobHandler);
 
+    public abstract void setCitizenItemHandler(ICitizenItemHandler citizenItemHandler);
 
+    public abstract void setCitizenChatHandler(ICitizenChatHandler citizenChatHandler);
 
-
-
+    public abstract void setCitizenExperienceHandler(ICitizenExperienceHandler citizenExperienceHandler);
 }

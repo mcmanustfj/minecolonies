@@ -129,17 +129,35 @@ public abstract class AbstractEntityAICrafting<J extends AbstractJobCrafter> ext
             return START_WORKING;
         }
         final IBuildingWorker buildingWorker = getOwnBuilding();
-        currentRecipeStorage = buildingWorker.getFirstFullFillableRecipe(currentTask.getRequest().getStack());
-
+        currentRecipeStorage = buildingWorker.getFirstFullFillableRecipe(stack -> stack.isItemEqual(currentTask.getRequest().getStack()), 1);
         if (currentRecipeStorage == null)
         {
             job.finishRequest(false);
+            incrementActionsDone();
             return START_WORKING;
         }
 
         currentRequest = currentTask;
         job.setMaxCraftingCount(currentRequest.getRequest().getCount());
+        final int currentCount = InventoryUtils.getItemCountInItemHandler(worker.getInventoryCitizen(), stack -> stack.isItemEqual(currentRecipeStorage.getPrimaryOutput()));
+        final int countPerIteration = currentRecipeStorage.getPrimaryOutput().getCount();
+        final int doneOpsCount = currentCount/countPerIteration;
+        final int remainingOpsCount = currentRequest.getRequest().getCount() - doneOpsCount;
 
+        final List<ItemStorage> input = currentRecipeStorage.getCleanedInput();
+        for (final ItemStorage inputStorage : input)
+        {
+            if (InventoryUtils.getItemCountInProvider(getOwnBuilding(), itemStack -> itemStack.isItemEqual(inputStorage.getItemStack()))
+                  + InventoryUtils.getItemCountInItemHandler(worker.getInventoryCitizen(), itemStack -> itemStack.isItemEqual(inputStorage.getItemStack()))
+                  < inputStorage.getAmount() * remainingOpsCount)
+            {
+                job.finishRequest(false);
+                incrementActionsDone();
+                return START_WORKING;
+            }
+        }
+
+        job.setCraftCounter(doneOpsCount);
         return QUERY_ITEMS;
     }
 
@@ -175,11 +193,11 @@ public abstract class AbstractEntityAICrafting<J extends AbstractJobCrafter> ext
         for (final ItemStorage inputStorage : input)
         {
             final Predicate<ItemStack> predicate = stack -> !ItemStackUtils.isEmpty(stack) && new Stack(stack).matches(inputStorage.getItemStack());
-            if (InventoryUtils.getItemCountInItemHandler(worker.getInventoryCitizen(), predicate) < inputStorage.getAmount())
+            if (InventoryUtils.getItemCountInItemHandler(worker.getInventoryCitizen(), predicate) + (job.getCraftCounter() * inputStorage.getAmount()) < inputStorage.getAmount() * job.getMaxCraftingCount())
             {
                 if (InventoryUtils.hasItemInProvider(getOwnBuilding(), predicate))
                 {
-                    needsCurrently = new Tuple<>(predicate, Constants.STACKSIZE);
+                    needsCurrently = new Tuple<>(predicate, inputStorage.getAmount() * job.getMaxCraftingCount());
                     return GATHERING_REQUIRED_MATERIALS;
                 }
                 currentRecipeStorage = null;
