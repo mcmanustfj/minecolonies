@@ -1327,6 +1327,10 @@ public class EntityCitizen extends AbstractEntityCitizen
             return result;
         }
 
+        if (damageSource.getTrueSource() instanceof LivingEntity && result) {
+            this.addPotionEffect(new EffectInstance(GLOW_EFFECT, GLOW_EFFECT_DAMAGE_DURATION, GLOW_EFFECT_MULTIPLIER));
+        }
+
         if (!world.isRemote)
         {
             citizenItemHandler.updateArmorDamage(damageInc);
@@ -1718,5 +1722,16 @@ public class EntityCitizen extends AbstractEntityCitizen
     public void updatePose(final Pose pose)
     {
         setPose(pose);
+    }
+
+    /**
+     * What to do when it kills something
+     * @param entityLivingIn the entity it killed
+     */
+    @Override
+    public void onKillEntity(LivingEntity entityLivingIn) {
+        LanguageHandler.sendPlayersMessage(this.getCitizenColonyHandler().getColony().getMessagePlayerEntities(),
+                LanguageHandler.format("entity.guard.messagekilledenemy",
+                this.getName().getFormattedText(), entityLivingIn.getDisplayName()));
     }
 }
