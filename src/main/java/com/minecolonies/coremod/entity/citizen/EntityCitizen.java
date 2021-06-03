@@ -74,6 +74,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -1788,5 +1789,16 @@ public class EntityCitizen extends AbstractEntityCitizen
     public boolean isActive()
     {
         return world.isRemote ? entityStatemachine.getState() == EntityState.ACTIVE_CLIENT : entityStatemachine.getState() == EntityState.ACTIVE_SERVER;
+    }
+
+    /**
+     * func_241847_a is the new onKillEntity
+     */
+    @Override
+    public void func_241847_a(ServerWorld world, LivingEntity killed) {
+        super.func_241847_a(world, killed);
+        LanguageHandler.sendPlayersMessage(this.getCitizenColonyHandler().getColony().getMessagePlayerEntities(),
+                LanguageHandler.format("com.minecolonies.coremod.entity.guard.messagekilledenemy",
+                this.getName().getString(), killed.getDisplayName()));
     }
 }

@@ -1621,6 +1621,8 @@
   "com.minecolonies.coremod.entity.citizen.no.slepttonight": "I didn't have enough time to go to sleep in the last three days!",
   "com.minecolonies.coremod.entity.citizen.sleep": "All colonists are tucked into bed.",
 
+  "com.minecolonies.coremod.entity.guard.messagekilledenemy": "%s has killed a(n) %s.",
+
   "com.minecolonies.coremod.gui.townhall.happiness.homelessness": "Housing",
   "com.minecolonies.coremod.gui.townhall.happiness.unemployment": "Unemployment",
   "com.minecolonies.coremod.gui.townhall.happiness.health": "Health",
