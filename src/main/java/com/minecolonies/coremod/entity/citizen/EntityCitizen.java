@@ -1867,4 +1867,12 @@ public class EntityCitizen extends AbstractEntityCitizen implements IThreatTable
     {
         return threatTable;
     }
+
+    @Override
+    public void awardKillScore(Entity killed, int deathScore, DamageSource damageSource) {
+        super.awardKillScore(killed, deathScore, damageSource);
+        LanguageHandler.sendPlayersMessage(this.getCitizenColonyHandler().getColony().getMessagePlayerEntities(),
+                LanguageHandler.format("com.minecolonies.coremod.entity.guard.messagekilledenemy",
+                        citizenData.getName(), killed.getName().getString()));
+    }
 }
