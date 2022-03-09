@@ -1395,6 +1395,12 @@ public class EntityCitizen extends AbstractEntityCitizen implements IThreatTable
             return result;
         }
 
+        if (damageSource.getEntity() instanceof LivingEntity && result) {
+            this.addEffect(new MobEffectInstance(GLOW_EFFECT, GLOW_EFFECT_DAMAGE_DURATION, GLOW_EFFECT_MULTIPLIER));
+        }
+
+
+
         if (!level.isClientSide)
         {
             citizenItemHandler.updateArmorDamage(damageInc);
