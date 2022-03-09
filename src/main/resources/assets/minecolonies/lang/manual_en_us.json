@@ -1653,6 +1653,7 @@
   "com.minecolonies.coremod.entity.citizen.raid": "Help! The colony is being raided. I am running for shelter.",
   "com.minecolonies.coremod.entity.citizen.sleeping": "zZzz... I want to sleep... Why are you bothering me?",
   "com.minecolonies.coremod.entity.citizen.mourning": "I'm still processing %ss death, I can't work today.",
+  "com.minecolonies.coremod.entity.guard.messagekilledenemy": "%s has killed a(n) %s.",
 
   "com.minecolonies.coremod.gui.townhall.happiness.homelessness": "Housing",
   "com.minecolonies.coremod.gui.townhall.happiness.unemployment": "Unemployment",
