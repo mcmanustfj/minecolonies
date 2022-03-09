@@ -14,7 +14,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Tuple;
+import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,6 +26,8 @@ import java.util.Random;
 
 import static com.minecolonies.api.util.constant.CitizenConstants.MAX_CITIZEN_LEVEL;
 import static com.minecolonies.api.util.constant.NbtTagConstants.*;
+import static com.minecolonies.api.util.constant.TranslationConstants.COM_MINECOLONIES_COREMOD_ENTITY_CITIZEN_LEVELUP;
+import static com.minecolonies.api.util.constant.TranslationConstants.RECIPE_IMPROVED;
 
 /**
  * The citizen skill handler of the citizen.
@@ -206,6 +210,20 @@ public class CitizenSkillHandler implements ICitizenSkillHandler
 
         if (level > tuple.getA())
         {
+            // Arguments are in the order Name, Job, Skill, Level
+            final TranslatableComponent message = new TranslatableComponent(
+                    COM_MINECOLONIES_COREMOD_ENTITY_CITIZEN_LEVELUP,
+                    data.getName(),
+                    new TranslatableComponent(data.getJob().getJobRegistryEntry().getTranslationKey().toLowerCase()),
+                    skill.name(),
+                    level);
+
+            for(Player player : data.getColony().getMessagePlayerEntities())
+            {
+                player.sendMessage(message, player.getUUID());
+            }
+
+
             levelUp(data);
             data.markDirty();
         }
